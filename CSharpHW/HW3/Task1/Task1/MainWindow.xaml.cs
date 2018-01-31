@@ -20,171 +20,110 @@ namespace Task1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _rbType="sbyte";
-        private string _rbValue = "MaxValue";
         public MainWindow()
         {
             InitializeComponent();
-            foreach (UIElement c in layoutStackPanelTypes.Children)
-            {
-                if (c is RadioButton)
-                {
-                    ((RadioButton)c).Checked += RadioButtonType_Checked;
-                }
-                
-            }
-            foreach (UIElement c in layoutStackPanelValues.Children)
-            {
-                if (c is RadioButton)
-                {
-                    ((RadioButton)c).Checked += RadioButtonValue_Checked;
-                }
-
-            }
-            
-            button1.Click += Button_Click;
             
         }
-        private void RadioButtonType_Checked(object sender, RoutedEventArgs e)
+        private bool NameCheck(string text)
         {
-            RadioButton pressed = (RadioButton)sender;
-            _rbType = pressed.Content.ToString();
-        }
-
-
-        private void RadioButtonValue_Checked(object sender, RoutedEventArgs e)
-        {
-            RadioButton pressed = (RadioButton)sender;
-            _rbValue = pressed.Content.ToString();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            switch (_rbType)
+            if (text.Length < 255)
             {
-                case "sbyte":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = sbyte.MaxValue;
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (!(Char.IsLetter(text[i]))){
+                        return false;
                     }
-                    else
-                    {
-                        valueType.Content = sbyte.MinValue;
-                    }
-                    break;
-                case "byte":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = byte.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = byte.MinValue;
-                    }
-                    break;
-                case "short":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = short.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = short.MinValue;
-                    }
-                    break;
-                case "ushort":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = ushort.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = ushort.MinValue;
-                    }
-                    break;
-                case "int":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = int.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = int.MinValue;
-                    }
-                    break;
-                case "uint":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = uint.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = uint.MinValue;
-                    }
-                    break;
-                case "long":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = long.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = long.MinValue;
-                    }
-                    break;
-                case "ulong":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = ulong.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = ulong.MinValue;
-                    }
-                    break;
-                case "float":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = float.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = float.MinValue;
-                    }
-                    break;
-                case "double":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = double.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = double.MinValue;
-                    }
-                    break;
-                case "decimal":
-                    if (valueCheck(_rbValue) == true)
-                    {
-                        valueType.Content = decimal.MaxValue;
-                    }
-                    else
-                    {
-                        valueType.Content = decimal.MinValue;
-                    }
-                    break;
+                }
+                return true;
             }
+            else return false;
+            
         }
 
-        private bool valueCheck(string value)
+        private bool BirthCheck(string text)
         {
-            if (value == "MaxValue"){
+            string[] dateOfBirth = text.Split('/');
+            try
+            {
+                if ((int.Parse(dateOfBirth[0]) > 0 && int.Parse(dateOfBirth[0]) < 32) && (int.Parse(dateOfBirth[1]) > 0 && int.Parse(dateOfBirth[1]) < 13)
+                    && (int.Parse(dateOfBirth[2]) > 1900 && int.Parse(dateOfBirth[2]) < int.Parse(DateTime.Now.Year.ToString())))
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        private bool GenderCheck(string text)
+        {
+            if (text == "male" || text == "Male" || text == "Female" || text == "female")
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        private bool EmailCheck(string text)
+        {
+            if (text.Length < 255 && text.Contains("@"))
+            {
                 return true;
             }
             else
             {
                 return false;
-            }       
-         }
+            }
+        }
 
+        private bool PhNumberCheck(string text)
+        {
+            if (text.Length == 12)
+            {
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (!(Char.IsDigit(text[i])))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else return false;
+        }
+
+        private bool AdInfoCheck (string text)
+        {
+            if (text.Length < 2000)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        private void Run()
+        {
+            if (NameCheck(firstName.Text) && NameCheck(lastName.Text)
+                && BirthCheck(birthDate.Text) && GenderCheck(gender.Text) &&
+                EmailCheck(email.Text) && PhNumberCheck(phNumber.Text)&&
+                AdInfoCheck(addInfo.Text)){
+                MessageBox.Show("Data is valid", "Task1");
+            }
+            else
+            {
+                MessageBox.Show("Data is invalid", "Task1");
+            }
+        }
+
+
+        private void check_Click(object sender, RoutedEventArgs e)
+        {
+            Run();
+        }
     }
 }
