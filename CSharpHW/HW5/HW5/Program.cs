@@ -10,16 +10,54 @@ namespace HW5
     {
         static void Main(string[] args)
         {
-            Triangle(4);
-            Square(5);
-            Romb(7);
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Put the number from 1 to 3." + '\n' + "1 - Triangle" + '\n' + "2 - Square" + '\n' + "3 - Romb" + '\n' + "or 'ex' to exit");
+                    string text = Console.ReadLine();
+
+
+                    if (text == "ex")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        
+                        Console.WriteLine("Write the size of figure");
+                        int size = int.Parse(Console.ReadLine());
+                        switch (text)
+                        {
+                            case "1":
+                                Triangle(size);
+                                break;
+                            case "2":
+                                Square(size);
+                                break;
+                            case "3":
+                                Romb(size);
+                                break;
+
+                        }
+                    }
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+
         }
         private static void Triangle(int k)
         {
             Console.WriteLine("Triangle - {0}", k);
-            for(int i = 0; i < k; i++)
+            for (int i = 0; i < k; i++)
             {
-                for (int j = 0; j < i+1; j++)
+                for (int j = 0; j < i + 1; j++)
                 {
                     Console.Write("* ");
                 }
@@ -72,9 +110,9 @@ namespace HW5
                     Console.Write("* ");
                 }
                 Console.WriteLine();
-                
+
             }
         }
     }
-   
+
 }
