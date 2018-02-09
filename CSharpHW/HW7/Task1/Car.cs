@@ -11,6 +11,12 @@ namespace Task1
         private string _model;
         private string _year;
         private string _color;
+        public Car(string model, string year, string color)
+        {
+            _model = model;
+            _year = year;
+            _color = color;
+        }
         public string Color
         {
             get { return _color; }

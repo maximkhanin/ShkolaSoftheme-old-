@@ -10,7 +10,7 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            Car car = new Car();
+            Car car = new Car("Audi","1990","blue");
             TuningAtelier.TuneCar(car);
             Console.WriteLine(car.Color.ToString());
         }
