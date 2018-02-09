@@ -8,13 +8,12 @@
         Title="Task1" Height="350" Width="525">
     <Grid x:Name="layoutGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel ToolTip="Choose Type" x:Name="layoutStackPanelTypes">
+        <StackPanel ToolTip="Choose Type" x:Name="layoutStackPanelTypes" Grid.Column="0">
             <Label Content="Numeric Types"/>
-            <RadioButton x:Name ="rbsbyte" Content="sbyte" IsChecked="True"/>
+            <RadioButton Content="sbyte" />
             <RadioButton Content="byte"/>
             <RadioButton Content="short"/>
             <RadioButton Content="ushort"/>
@@ -26,14 +25,11 @@
             <RadioButton Content="double"/>
             <RadioButton Content="decimal"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" ToolTip="Choose Value" x:Name="layoutStackPanelValues">
-            <Label Content="Value"/>
-            <RadioButton Content="MaxValue" IsChecked="True"/>
-            <RadioButton Content="MinValue"/>
-        </StackPanel>
-        <StackPanel Grid.Column="2">
+        <StackPanel Grid.Column="1">
             <Button x:Name="button1" Content="Show"/>
-            <Label x:Name="valueType" Height="65" Margin="0,0,0.4,0"/>
+            <Label x:Name="maxValue" Height="65" Margin="0,0,0.4,0"/>
+            <Label x:Name="minValue" Height="65" Margin="0,0,0.4,0"/>
+            <Label x:Name="defaultValue" Height="65" Margin="0,0,0.4,0"/>
         </StackPanel>
 
     </Grid>
