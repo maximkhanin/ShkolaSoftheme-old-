@@ -1,0 +1,65 @@
+﻿<Window x:Class="Lab2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:local="clr-namespace:Lab2"
+        mc:Ignorable="d"
+        Title="Lab2" Height="350" Width="525">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <TabControl>
+        <TabItem Header="Main">
+            <Grid Background="#FFE5E5E5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                        
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Input number of arrays" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Width="100" Height="20" x:Name="count" Text="0" Grid.Row="0" Grid.Column="1" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label Content="Input the minimum possible value of the elements" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Width="100" Height="20" x:Name="minRange" Text="0" Grid.Row="1" Grid.Column="1" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label Content="Input the maximum possible value of the elements" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Width="100" Height="20" x:Name="maxRange" Text="0" Grid.Row="2" Grid.Column="1" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label Content="Input the minimum possible size of the array" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox Width="100" Height="20" x:Name="minSize" Text="0" Grid.Row="3" Grid.Column="1" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label Content="Input the maximum possible size of the array" Grid.Row="4" Grid.Column="0"/>
+                    <TextBox Width="100" Height="20" x:Name="maxSize" Text="0" PreviewTextInput="NumberValidationTextBox" Grid.Row="4" Grid.Column="1"/>
+                    <Button Content="Paste data" Width="100" Height="20" Click="Button_Click" Grid.Row="5" Grid.Column="1"/>
+                </Grid>
+                
+                
+            </Grid>
+        </TabItem>
+        <TabItem Header="Arrays">
+            <Grid Background="#FFE5E5E5">
+                <ScrollViewer>
+                    <TextBox TextWrapping="Wrap" x:Name="result" IsReadOnly="True"/>
+                </ScrollViewer>
+                
+            </Grid>
+        </TabItem>
+        <TabItem Header="Graph of time complexity">
+            <Grid Background="#FFE5E5E5">
+                <oxy:PlotView x:Name="timeComplexity"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Graph of computational complexity">
+            <Grid Background="#FFE5E5E5">
+                <oxy:PlotView Model="{Binding MyModel}"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
