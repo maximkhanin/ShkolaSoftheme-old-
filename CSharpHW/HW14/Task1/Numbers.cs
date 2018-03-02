@@ -24,10 +24,12 @@ namespace Task1
                 _numbers[i] = Validate(Console.ReadLine());
             }
         }
+
         public Number[] GetNumber()
         {
             return _numbers;
         }
+
         public Number Validate(string value)
         {
 

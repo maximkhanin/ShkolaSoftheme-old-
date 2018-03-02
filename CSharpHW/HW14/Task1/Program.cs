@@ -10,8 +10,8 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            Numbers numbers = new Numbers();
-            Lottery lottery = new Lottery();
+            var numbers = new Numbers();
+            var lottery = new Lottery();
             var lotteryTicket = lottery.GetNumber();
             for (int i = 0; i < lotteryTicket.Length; i++)
             {
