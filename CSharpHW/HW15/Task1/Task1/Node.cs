@@ -13,7 +13,15 @@ namespace Task1
         public Node<T> prev;
         public Node(T value)
         {
-            Value = value;
+            if (value == null)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                Value = value;
+            }
+            
         }
         public void Print()
         {

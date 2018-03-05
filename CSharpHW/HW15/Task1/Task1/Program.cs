@@ -22,12 +22,14 @@ namespace Task1
             doublyLinkedList.Add(node);
             doublyLinkedList.Remove(node1);
             doublyLinkedList.Remove(node);
+
             Console.WriteLine(doublyLinkedList.IsExist(node2));
             Console.WriteLine(doublyLinkedList.IsExist(node));
-            Node<int>[] nodes = doublyLinkedList.ToArray();
+           
+            int[] nodes = doublyLinkedList.ToArray();
             foreach (var item in nodes)
             {
-                Console.WriteLine("{0} ", item.Value);
+                Console.WriteLine("{0} ", item);
             }
 
         }

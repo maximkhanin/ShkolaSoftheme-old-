@@ -15,21 +15,52 @@ namespace Task1
         {
             size = 0;
         }
+        public void Add(T value)
+        {
+            if (value == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            else
+            {
+                if (header == null)
+                {
+                    header = footer = new Node<T>(value);
+                }
+                else
+                {
+                    Node<T> tmp = header;
+                    header = new Node<T>(value);
+                    tmp.prev = header;
+                    header.next = tmp;
+
+                }
+                size += 1;
+            }
+        }
         public void Add(Node<T> value)
         {
-            if (header == null)
+            if (value == null)
             {
-                header = footer = value;
+                throw new NullReferenceException();
             }
             else
             {
-                Node<T> tmp = header;
-                header = value;
-                tmp.prev = header;
-                header.next = tmp;
+                if (header == null)
+                {
+                    header = footer = value;
+                }
+                else
+                {
+                    Node<T> tmp = header;
+                    header = value;
+                    tmp.prev = header;
+                    header.next = tmp;
 
+                }
+                size += 1;
             }
-            size += 1;
         }
         public void Print()
         {
@@ -56,7 +87,7 @@ namespace Task1
                 }
             }
         }
-       public Node<T>[] ToArray()
+       public Node<T>[] ToNodesArray()
         {
             Node<T>[] nodes = new Node<T>[size];
             int i = 0;
@@ -72,7 +103,22 @@ namespace Task1
             }
             return nodes;
         }
-
+        public T[] ToArray()
+        {
+            T[] nodes = new T[size];
+            int i = 0;
+            if (header != null)
+            {
+                Node<T> tmp = header;
+                while (tmp != null)
+                {
+                    nodes[i] = tmp.Value;
+                    i += 1;
+                    tmp = tmp.next;
+                }
+            }
+            return nodes;
+        }
         public int Size()
         {
             return size;
@@ -80,52 +126,108 @@ namespace Task1
 
         public bool IsExist(Node<T> value)
         {
-            if (header != null)
+            if (value == null)
             {
-                Node<T> tmp = header;
-                while (tmp != null)
-                {
-                    if (tmp == value)
-                    {
-                        return true;
-                    }
-                    tmp = tmp.next;
-                }
+                throw new NullReferenceException();
             }
-            return false;
+            else
+            {
+                if (header != null)
+                {
+                    Node<T> tmp = header;
+                    while (tmp != null)
+                    {
+                        if (tmp == value)
+                        {
+                            return true;
+                        }
+                        tmp = tmp.next;
+                    }
+                }
+                return false;
+            }
 
         }
 
+
+        public void Remove(T value)
+        {
+            if (value == null)
+            {
+                throw new NullReferenceException();
+            }
+          
+            else {if (header != null)
+                {
+                    Node<T> tmp = header;
+                    while (tmp != null)
+                    {
+                        if (tmp == new Node<T>(value))
+                        {
+                            if (tmp.prev == null)
+                            {
+                                header = tmp.next;
+                            }
+                            else
+                            {
+                                tmp.prev.next = tmp.next;
+                            }
+
+                            if (tmp.next == null)
+                            {
+                                footer = tmp.prev;
+                            }
+
+                            else
+                            {
+                                tmp.next.prev = tmp.prev;
+                            }
+                            size -= 1;
+                        }
+                        tmp = tmp.next;
+                    }
+                }
+            }
+        }
+
+
         public void Remove(Node<T> value)
         {
-            if (header != null)
+            if (value == null)
             {
-                Node<T> tmp = header;
-                while (tmp != null)
+                throw new NullReferenceException();
+            }
+            else
+            {
+                if (header != null)
                 {
-                    if (tmp == value)
+                    Node<T> tmp = header;
+                    while (tmp != null)
                     {
-                        if (tmp.prev == null)
+                        if (tmp == value)
                         {
-                            header = tmp.next;
-                        }
-                        else
-                        {
-                            tmp.prev.next = tmp.next;
-                        }
-                        
-                        if (tmp.next == null)
-                        {
-                            footer = tmp.prev;
-                        }
+                            if (tmp.prev == null)
+                            {
+                                header = tmp.next;
+                            }
+                            else
+                            {
+                                tmp.prev.next = tmp.next;
+                            }
 
-                        else
-                        {
-                            tmp.next.prev = tmp.prev;
+                            if (tmp.next == null)
+                            {
+                                footer = tmp.prev;
+                            }
+
+                            else
+                            {
+                                tmp.next.prev = tmp.prev;
+                            }
+                            size -= 1;
                         }
-                        size -= 1;
+                        tmp = tmp.next;
                     }
-                    tmp = tmp.next;
                 }
             }
         }
