@@ -20,6 +20,7 @@ namespace Task1
             doublyLinkedList.Add(node2);
             doublyLinkedList.Add(node3);
             doublyLinkedList.Add(node);
+            doublyLinkedList.Add(null);
             doublyLinkedList.Remove(node1);
             doublyLinkedList.Remove(node);
 

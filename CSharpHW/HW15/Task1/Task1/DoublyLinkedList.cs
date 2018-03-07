@@ -22,22 +22,20 @@ namespace Task1
                 throw new NullReferenceException();
             }
 
+            if (header == null)
+            {
+                header = footer = new Node<T>(value);
+            }
             else
             {
-                if (header == null)
-                {
-                    header = footer = new Node<T>(value);
-                }
-                else
-                {
-                    Node<T> tmp = header;
-                    header = new Node<T>(value);
-                    tmp.prev = header;
-                    header.next = tmp;
+                Node<T> tmp = header;
+                header = new Node<T>(value);
+                tmp.prev = header;
+                header.next = tmp;
 
-                }
-                size += 1;
             }
+            size += 1;
+
         }
         public void Add(Node<T> value)
         {
@@ -45,22 +43,21 @@ namespace Task1
             {
                 throw new NullReferenceException();
             }
+
+            if (header == null)
+            {
+                header = footer = value;
+            }
             else
             {
-                if (header == null)
-                {
-                    header = footer = value;
-                }
-                else
-                {
-                    Node<T> tmp = header;
-                    header = value;
-                    tmp.prev = header;
-                    header.next = tmp;
+                Node<T> tmp = header;
+                header = value;
+                tmp.prev = header;
+                header.next = tmp;
 
-                }
-                size += 1;
             }
+            size += 1;
+
         }
         public void Print()
         {
@@ -70,7 +67,7 @@ namespace Task1
                 while (tmp != null)
                 {
                     tmp.Print();
-                    tmp= tmp.next;
+                    tmp = tmp.next;
                 }
             }
         }
@@ -87,7 +84,7 @@ namespace Task1
                 }
             }
         }
-       public Node<T>[] ToNodesArray()
+        public Node<T>[] ToNodesArray()
         {
             Node<T>[] nodes = new Node<T>[size];
             int i = 0;
@@ -156,38 +153,38 @@ namespace Task1
             {
                 throw new NullReferenceException();
             }
-          
-            else {if (header != null)
+
+            if (header != null)
+            {
+                Node<T> tmp = header;
+                while (tmp != null)
                 {
-                    Node<T> tmp = header;
-                    while (tmp != null)
+                    if (tmp == new Node<T>(value))
                     {
-                        if (tmp == new Node<T>(value))
+                        if (tmp.prev == null)
                         {
-                            if (tmp.prev == null)
-                            {
-                                header = tmp.next;
-                            }
-                            else
-                            {
-                                tmp.prev.next = tmp.next;
-                            }
-
-                            if (tmp.next == null)
-                            {
-                                footer = tmp.prev;
-                            }
-
-                            else
-                            {
-                                tmp.next.prev = tmp.prev;
-                            }
-                            size -= 1;
+                            header = tmp.next;
                         }
-                        tmp = tmp.next;
+                        else
+                        {
+                            tmp.prev.next = tmp.next;
+                        }
+
+                        if (tmp.next == null)
+                        {
+                            footer = tmp.prev;
+                        }
+
+                        else
+                        {
+                            tmp.next.prev = tmp.prev;
+                        }
+                        size -= 1;
                     }
+                    tmp = tmp.next;
                 }
             }
+
         }
 
 
@@ -197,41 +194,40 @@ namespace Task1
             {
                 throw new NullReferenceException();
             }
-            else
+
+            if (header != null)
             {
-                if (header != null)
+                Node<T> tmp = header;
+                while (tmp != null)
                 {
-                    Node<T> tmp = header;
-                    while (tmp != null)
+                    if (tmp == value)
                     {
-                        if (tmp == value)
+                        if (tmp.prev == null)
                         {
-                            if (tmp.prev == null)
-                            {
-                                header = tmp.next;
-                            }
-                            else
-                            {
-                                tmp.prev.next = tmp.next;
-                            }
-
-                            if (tmp.next == null)
-                            {
-                                footer = tmp.prev;
-                            }
-
-                            else
-                            {
-                                tmp.next.prev = tmp.prev;
-                            }
-                            size -= 1;
+                            header = tmp.next;
                         }
-                        tmp = tmp.next;
+                        else
+                        {
+                            tmp.prev.next = tmp.next;
+                        }
+
+                        if (tmp.next == null)
+                        {
+                            footer = tmp.prev;
+                        }
+
+                        else
+                        {
+                            tmp.next.prev = tmp.prev;
+                        }
+                        size -= 1;
                     }
+                    tmp = tmp.next;
                 }
             }
+
         }
     }
-    
+
 }
 

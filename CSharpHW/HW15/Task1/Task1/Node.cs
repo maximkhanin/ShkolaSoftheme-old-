@@ -17,10 +17,9 @@ namespace Task1
             {
                 throw new NullReferenceException();
             }
-            else
-            {
-                Value = value;
-            }
+            
+            Value = value;
+            
             
         }
         public void Print()
