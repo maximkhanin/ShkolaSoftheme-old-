@@ -25,9 +25,9 @@ namespace Task1
 
         private void MobileAccount_MessageEvent(object sender, SmsEventArgs e)
         {
-            var tmp = mobileAccounts.First(i => i.Number == e.number);
+            var tmp = mobileAccounts.First(i => i.Number == e.Number);
             var tmp2 = (MobileAccount)sender;
-            tmp.ReceiveMessage(tmp2.Number, e.message);
+            tmp.ReceiveMessage(tmp2.Number, e.Message);
 
         }
 

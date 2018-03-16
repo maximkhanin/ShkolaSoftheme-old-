@@ -15,13 +15,10 @@ namespace Task1
 
         public int Number { get; }
 
-
         public MobileAccount(int number)
         {
             Number = number;
-        }
-
-        
+        } 
 
         public void MakeCall(int number)
         {
@@ -36,12 +33,11 @@ namespace Task1
             Console.WriteLine("Call from {0} to {1}", number, Number);
         }
 
-
         public void SendMessage(int number, string message)
         {
             if (MessageEvent != null)
             {
-                MessageEvent.Invoke(this, new SmsEventArgs { number = number, message = message});
+                MessageEvent.Invoke(this, new SmsEventArgs { Number = number, Message = message});
             }
         }
 
@@ -49,7 +45,5 @@ namespace Task1
         {
             Console.WriteLine("Message from {0} to {1}, {2}", number, Number, message);
         }
-
-
     }
 }

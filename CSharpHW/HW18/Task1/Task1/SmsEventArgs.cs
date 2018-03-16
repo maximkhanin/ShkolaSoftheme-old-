@@ -8,7 +8,7 @@ namespace Task1
 {
     class SmsEventArgs
     {
-        public int number;
-        public string message;
+        public int Number { get; set; }
+        public string Message { get; set; }
     }
 }
