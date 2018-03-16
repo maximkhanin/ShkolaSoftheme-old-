@@ -8,43 +8,69 @@ namespace Task2
 {
     class MobileAccount
     {
-        private int _number;
-        private string _name;
+        public event EventHandler<int> CallEvent;
+        public event EventHandler<SmsEventArgs> MessageEvent;
+        public int Number { get; }
+        public string Name { get; }
         private List<MobileAccount> _contacts;
         public MobileAccount(int number, string name)
         {
-            _number = number;
-            _name = name;
+            Number = number;
+            Name = name;
             _contacts = new List<MobileAccount>();
         }
 
-        public void MakeCall(MobileAccount mobileAccount)
+        public void AddContact(int number, string name)
         {
-            if (_contacts.Contains(mobileAccount))
+            if (!_contacts.Exists(e => e.Number == number))
             {
-                Console.WriteLine("Call from {0} to {1}", mobileAccount._name, _number );
-            }
-            else
-            {
-                Console.WriteLine("Call from {0} to {1}", mobileAccount._number, _number );
+                _contacts.Add(new MobileAccount(number, name));
             }
         }
 
-        public void AddContact(MobileAccount mobileAccount)
+
+        public void MakeCall(int number)
         {
-            _contacts.Add(mobileAccount);
+            if (CallEvent != null)
+            {
+                CallEvent.Invoke(this, number);
+            }
         }
 
-        public void SendMessage(MobileAccount mobileAccount)
+        public void ReceiveCall(int number)
         {
-            if (_contacts.Contains(mobileAccount))
+            if (_contacts.Exists(e => e.Number == number))
             {
-                Console.WriteLine("Message from {0} to {1}", mobileAccount._name, _number);
+                var tmp = _contacts.Find(e => e.Number == number);
+                Console.WriteLine("Call from {0} to {1}", tmp.Name, Number);
             }
             else
             {
-                Console.WriteLine("Message from {0} to {1}", mobileAccount._number, _number);
+                Console.WriteLine("Call from {0} to {1}", number, Number);
             }
+        }
+
+
+        public void SendMessage(int number, string message)
+        {
+            if (MessageEvent != null)
+            {
+                MessageEvent.Invoke(this, new SmsEventArgs { number = number, message = message });
+            }
+        }
+
+        public void ReceiveMessage(int number, string message)
+        {
+            if (_contacts.Exists(e => e.Number == number))
+            {
+                var tmp = _contacts.Find(e => e.Number == number);
+                Console.WriteLine("Message from {0} to {1}, {2}", tmp.Name, Number, message);
+            }
+            else
+            {    
+                Console.WriteLine("Message from {0} to {1}, {2}", number, Number, message);
+            }
+
             
         }
     }

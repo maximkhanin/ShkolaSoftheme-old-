@@ -10,13 +10,19 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            MobileAccount mobileAccount1 = new MobileAccount(1234, "Max");
-            MobileAccount mobileAccount2 = new MobileAccount(5678, "Alex");
-            mobileAccount1.AddContact(mobileAccount2);
             MobileOperator mobileOperator = new MobileOperator();
+
+            MobileAccount mobileAccount1 = new MobileAccount(123,"Alex");
+            MobileAccount mobileAccount2 = new MobileAccount(456,"Max");
+
             mobileOperator.AddNumber(mobileAccount1);
             mobileOperator.AddNumber(mobileAccount2);
-            mobileOperator.MakeCall(mobileAccount1, mobileAccount2);
+            mobileAccount1.AddContact(456, "Max");
+
+
+            mobileAccount2.MakeCall(123);
+
+            mobileAccount2.SendMessage(123, "Hello");
         }
     }
 }

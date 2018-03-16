@@ -8,9 +8,6 @@ namespace Task1
 {
     class MobileOperator
     {
-        public delegate void MethodContainer(MobileAccount mobileAccount);
-        public event MethodContainer Action;
-
         private List<MobileAccount> mobileAccounts;
 
         public MobileOperator()
@@ -21,27 +18,24 @@ namespace Task1
         public void AddNumber(MobileAccount mobileAccount)
         {
             mobileAccounts.Add(mobileAccount);
-        }
-
-        public void SendMessage(MobileAccount account1, MobileAccount account2)
-        {
-            if (mobileAccounts.Contains(account1) && mobileAccounts.Contains(account2))
-            {
-                Action = account1.SendMessage;
-                Action.Invoke(account2);
-            }
+            mobileAccount.CallEvent += MobileAccount_CallEvent;
+            mobileAccount.MessageEvent += MobileAccount_MessageEvent;
             
         }
 
-        public void MakeCall(MobileAccount account1, MobileAccount account2)
+        private void MobileAccount_MessageEvent(object sender, SmsEventArgs e)
         {
-            if (mobileAccounts.Contains(account1) && mobileAccounts.Contains(account2))
-            {
-                Action = account1.MakeCall;
-                Action.Invoke(account2);
-            }
+            var tmp = mobileAccounts.First(i => i.Number == e.number);
+            var tmp2 = (MobileAccount)sender;
+            tmp.ReceiveMessage(tmp2.Number, e.message);
+
         }
 
-       
+        private void MobileAccount_CallEvent(object sender, int e)
+        {
+            var tmp = mobileAccounts.First(i => i.Number == e);
+            var tmp2 = (MobileAccount)sender;
+            tmp.ReceiveCall(tmp2.Number);
+        }
     }
 }
