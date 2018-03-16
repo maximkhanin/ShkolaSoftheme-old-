@@ -31,7 +31,7 @@ namespace Task2
 
 
             Console.WriteLine("Most Frequently Receiving Numbers");
-            mobileOperator.MostFrequentlyReceivingNumbers(2);
+            mobileOperator.MostFrequentlyReceivingNumbers(5);
 
             Console.WriteLine("Most Frequently Sendering Numbers");
             mobileOperator.MostFrequentlySendingNumbers(5);
