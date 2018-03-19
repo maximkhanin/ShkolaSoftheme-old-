@@ -10,7 +10,7 @@ namespace Task2
     {
         public MobileAccount Sender { get; }
         public  MobileAccount Receiver { get; }
-       public double Rate { get; }
+        public double Rate { get; }
         public Log(MobileAccount sender, MobileAccount receiver, double rate)
         {
             Sender = sender;

@@ -50,7 +50,7 @@ namespace Task2
 
         public void MostFrequentlyReceivingNumbers(int count)
         {
-            var Result = _Log.GroupBy(x => x.Receiver);
+            var Result = _Log.GroupBy(x => x.Receiver).OrderByDescending(x => x.Count()).Take(count);
             foreach (var item in Result)
             { 
                 var tmp = 0.0;
@@ -62,13 +62,14 @@ namespace Task2
 
         public void MostFrequentlySendingNumbers(int count)
         {
-            var Result = _Log.GroupBy(x => x.Sender);
+            var Result = _Log.GroupBy(x => x.Sender).OrderByDescending(x => x.Count()).Take(count);
             foreach (var item in Result)
             {
                 var tmp = 0.0;
                 foreach (var t in item)
                     tmp += t.Rate;
                 Console.WriteLine("{0} - {1}", item.Key.Number, tmp);
+
             }
         }
     }
