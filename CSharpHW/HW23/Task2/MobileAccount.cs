@@ -45,7 +45,10 @@ namespace Task2
 
         public void MakeCall(PhoneNumber phoneNumber)
         {
-            CallEvent?.Invoke(this, phoneNumber);
+            if (CallEvent != null)
+            {
+                CallEvent.Invoke(this, phoneNumber);
+            }
         }
 
         public void ReceiveCall(PhoneNumber phoneNumber)

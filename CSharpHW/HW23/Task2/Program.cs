@@ -14,9 +14,17 @@ namespace Task2
 
             mobileOperator.AddNumber(mobileAccount1);
             mobileOperator.AddNumber(mobileAccount2);
-            mobileOperator.AddNumber(mobileAccount1);
 
-            
+            Console.WriteLine(mobileAccount1.Number);
+            Console.WriteLine(mobileAccount2.Number);
+
+            mobileAccount1.MakeCall(mobileAccount2.Number);
+
+            mobileAccount2.MakeCall(mobileAccount1.Number);
+
+            mobileAccount1.SendMessage(mobileAccount2.Number,"Message text");
+
+            mobileOperator.Log.MostFrequentlyReceivingNumbers(5);
         }
     }
 }

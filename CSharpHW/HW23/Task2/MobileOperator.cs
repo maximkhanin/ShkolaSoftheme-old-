@@ -34,7 +34,7 @@ namespace Task2
             var rand = new Random(Guid.NewGuid().GetHashCode());
             var phoneNumber = new PhoneNumber(Convert.ToInt64($"{rand.Next(10000, 99999)}{rand.Next(10000, 99999)}"));
 
-            XDocument doc = XDocument.Load("contacts.xml");
+            var doc = XDocument.Load("contacts.xml");
             var uniqCheckXElement = doc.Descendants("mobileAccount").
                     FirstOrDefault(x => x.Attribute("number").Value == phoneNumber.Number.ToString());
             
@@ -47,18 +47,22 @@ namespace Task2
 
         public void AddNumber(MobileAccount mobileAccount)
         {
+            if (_mobileAccounts.ContainsValue(mobileAccount))
+            {
+                return;
+            }
             var phoneNumber = GenPhoneNumber();
             mobileAccount.Number = phoneNumber;
 
             mobileAccount.CallEvent += MobileAccount_CallEvent;
             mobileAccount.MessageEvent += MobileAccount_MessageEvent;
 
-            XmlDocument document = new XmlDocument();
+            var document = new XmlDocument();
             document.Load("contacts.xml");
 
-            XmlNode element = document.CreateElement("mobileAccount");
+            var element = document.CreateElement("mobileAccount");
             document.DocumentElement.AppendChild(element);
-            XmlAttribute attribute = document.CreateAttribute("number");
+            var attribute = document.CreateAttribute("number");
             attribute.Value = mobileAccount.Number.ToString();
             element.Attributes.Append(attribute);
 
@@ -79,17 +83,38 @@ namespace Task2
             element.AppendChild(emailElement);
 
             document.Save("contacts.xml");
+            _mobileAccounts.Add(phoneNumber, mobileAccount);
         }
 
         private void MobileAccount_MessageEvent(object sender, SmsEventArgs smsEventArgs)
         {
-            //Receiver.Value.ReceiveMessage(Sender.Number, smsEventArgs.Message);
-            //Log.Add(new Log(Sender, Receiver.Value, _messageRate));
+            var doc = XDocument.Load("contacts.xml");
+            var XElement = doc.Descendants("mobileAccount");
+            var uniqCheckXElement = XElement.FirstOrDefault(x => x.Attribute("number").Value == smsEventArgs.Number.Number.ToString()).Attribute("number");
+      
+            if (uniqCheckXElement != null)
+            {
+                var mobileAccountReceiver = _mobileAccounts.FirstOrDefault(x => x.Key.Number == long.Parse(uniqCheckXElement.Value));
+                var mobileAccountSender = (MobileAccount)sender;
+                mobileAccountReceiver.Value.ReceiveMessage(mobileAccountSender.Number, smsEventArgs.Message);
+                Log.Add(new Log(mobileAccountSender, mobileAccountReceiver.Value, _messageRate));
+            }
         }
 
         private void MobileAccount_CallEvent(object sender, PhoneNumber phoneNumber)
-        {  
-            //Log.Add(new Log(Sender, Receiver.Value, _callRate));
+        {
+            var doc = XDocument.Load("contacts.xml");
+            var XElement = doc.Descendants("mobileAccount");
+            var uniqCheckXElement = XElement.FirstOrDefault(x => x.Attribute("number").Value == phoneNumber.Number.ToString()).Attribute("number");
+            Console.WriteLine(uniqCheckXElement);
+          
+            if (uniqCheckXElement != null)
+            {
+                var mobileAccountReceiver = _mobileAccounts.FirstOrDefault(x => x.Key.Number == long.Parse(uniqCheckXElement.Value));
+                var mobileAccountSender = (MobileAccount) sender;
+                mobileAccountReceiver.Value.ReceiveCall(mobileAccountSender.Number);
+                Log.Add(new Log(mobileAccountSender, mobileAccountReceiver.Value, _callRate));
+            }   
         }        
     }
 }
